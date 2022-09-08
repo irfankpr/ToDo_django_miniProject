@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block header-footer %}
+<div class="container row p-0 my-5 justify-content-center col-12">
+    <div class="col-12 col-md-5 m-3 border  border-primary pt-5 text-center">
+        <h1>Admin Log IN</h1>
+        <p class="col-12 font-weight-bold text-secondary p-0 m-0">log in as admin</p>
+        <form action="admin" method="POST">
+            <input type="text" class="col-10 mt-4 mt-5" placeholder="Admin id" name="adminid">
+            <input type="Admin password" name="adpass" placeholder="Admin password" id="Adpass" class="col-10 mt-5">
+            <input type="submit" value="LOGIN" class="col-3 btn-outline-success my-5">
+        </form>
+        
+    </div>
+  
+{% endblock%}
