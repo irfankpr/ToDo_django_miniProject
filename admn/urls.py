@@ -5,7 +5,7 @@ urlpatterns = [
     path('admin', views.admin),
     path('admin-login',views.login),
     path('admin/home',views.adminhome),
-    path('admin/adout',views.adout),
+    path('admin/adout',views.adout,name='adout'),
     path('show/<int:Usrid>',views.show,name='show'),
     path('admin/show/<int:Usrid>',views.show,name='show'),
     path('admin/show/<int:Usrid>',views.show,name='show'),

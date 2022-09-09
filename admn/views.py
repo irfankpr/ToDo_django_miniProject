@@ -90,13 +90,16 @@ def adout(request):
 
 @never_cache
 def show(request,Usrid):
-    Cname = request.COOKIES.get('admin-ID')
-    users = User.objects.get(id=Usrid)
-    Username = users.username
-    form = newuser()
-    td = todo.objects.filter(username=Username, task_status=False)
-    dn = todo.objects.filter(username=Username, task_status=True)
-    return render(request,'user-data.html',{'td':td, 'dn':dn,'username':Username,'name':Cname,'form':form})
+    if 'admin-ID' in request.COOKIES:
+        Cname = request.COOKIES.get('admin-ID')
+        users = User.objects.get(id=Usrid)
+        Username = users.username
+        form = newuser()
+        td = todo.objects.filter(username=Username, task_status=False)
+        dn = todo.objects.filter(username=Username, task_status=True)
+        return render(request,'user-data.html',{'td':td, 'dn':dn,'username':Username,'name':Cname,'form':form})
+    else:
+        return redirect('/admin')
 
 @never_cache
 def delete(request,taskid):
@@ -138,7 +141,7 @@ def adduser(request):
     else:
         return redirect('/admin')
 
-
+@never_cache
 def deleteuser(request,userid):
     if request.method == 'GET':
         usr = User.objects.get(id=userid)
