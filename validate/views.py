@@ -36,7 +36,6 @@ def signin(request):
             uname = request.POST['username']
             pass1 = request.POST['password1']
             pass2 = request.POST['password2']
-
             if pass2 == pass1:
                 usr = User.objects.create_user(username=uname, password=pass1)
                 usr.save()

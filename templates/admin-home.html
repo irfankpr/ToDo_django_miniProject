@@ -3,9 +3,10 @@
       {% block header-footer %}
       <div class="container row col-12 bg-warning m-0 px-5 py-1 px-5 justify-content-between">
         <h1 class="col-6 col-md-4">Admin : {{name}}</h1>
-        <form class="form-inline my-2 my-lg-0 col-md-4">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+        <form class="form-inline my-2 my-lg-0 col-md-4" method="GET" action="#">
+          {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" value="search by user name" name="search" >
+            <button class="btn btn-outline-success my-2 my-sm-0 text-light font-weight-bold" type="submit">Search</button>
           </form>
         <a href="adout" class="font-weight-bolder bg-danger p-3 text-light text-decoration-none">LOG OUT</a>
       </div>
@@ -28,20 +29,21 @@
             {% endfor %}
         </table>
     </div>
-    <div class=" row container justify-content-center col-12">
-        <form method="POST" action="newuser" novalidate>
+    <div class=" row container justify-content-center  col-12">
+      {% for msg in messages %}
+      <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
+      {% endfor %}
+        <form method="POST" action="newuser" novalidate class="border border-primary p-1">
           {% csrf_token %}
           <div class=" col-12 row container justify-content-around">
             {{form|crispy}}
             <div class="mt-5">
-            <input type="checkbox" name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
+            <input type="radio" name="is_staff" value="True" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
+            <input type="radio" name="is_staff" value="False" id="is_staff"><label for="is_staff" class="mx-2">User</label>
         </div>
           <input type="submit" value="ADD" class="col-md-2 col-12 btn-outline-success mt-4" />
         </div>
         </form>
-        {% for msg in messages %}
-        <a class="col-12 p-0 m-0 text-danger font-weight-bold"> {{msg}} </a>
-        {% endfor %}
       </div>
       </div>
 

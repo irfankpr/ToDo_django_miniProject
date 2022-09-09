@@ -14,13 +14,14 @@
     <h5 class="font-weight-bold col-12">Tasks todo</h5>
   </div>
 
-  <div class=" col-8 container-fluid">
-    <form method="POST" action="newtask" novalidate>
+  <div class=" col-7 container-fluid row mx-1 my-0 p-0">
+    <form method="POST" action="newtask" novalidate class="col-12 row">
+      <h4 class="text-center text-primary col-12 p-0 m-0">Add new task</h4>
       {% csrf_token %}
-      <div class="col-md-10 col-10 float-left">
+      <div class="col-md-9 col-9 p-0 mx-1">
         {{form|crispy}}
       </div>
-      <input type="submit" value="ADD" class="col-md-2 col-12 btn-outline-success float-right mt-4" />
+      <input type="submit" value="ADD" class="col-12 col-md-2 btn-outline-success py-2 my-auto" />
     </form>
     {% for msg in messages %}
     <a class="col-12 p-0 m-0 text-danger font-weight-bold"> {{msg}} </a>
