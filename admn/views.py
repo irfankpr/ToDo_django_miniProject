@@ -1,8 +1,10 @@
 
+import re
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import lower
+from django.template.defaulttags import url
 from django.views.decorators.cache import never_cache
 
 from admn.forms import newuser
@@ -33,7 +35,8 @@ def login(request):
             adname = request.POST['adminid']
             password = request.POST['AdminPassword']
             usr = auth.authenticate(username=adname,password=password)
-            istaf = User.objects.get(username=adname)
+            if usr:
+                istaf = User.objects.get(username=adname)
             if usr and istaf.is_staff==True:
                 auth.login(request,usr)
                 res = redirect('admin/home')
@@ -154,7 +157,7 @@ def deleteuser(request,userid):
 
 
 def update(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['username'] and request.POST['password']:
         oldusername = request.POST['oldusername']
         newusername = request.POST['username']
         password = request.POST['password']
@@ -164,4 +167,8 @@ def update(request):
         usr = User.objects.create_user(username=newusername, password=password, is_staff=staf)
         usr.save()
         return redirect('/admin')
-
+    else:
+        oldusername = request.POST['oldusername']
+        usr = User.objects.get(username=oldusername)
+        messages.error(request, 'All fields are required to update an user')
+        return redirect('/admin')

@@ -57,13 +57,16 @@
       </div>
       <div class="col-12 container row justify-content-center">
       <div class="container col-6 row border border-primary justify-content-center mt-4">
+        {% for msg in messages %}
+        <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
+        {% endfor %}
         <h2 class="my-auto col-12 text-center">Update user</h2>
       <form class="col-8 font-weight-bold my-4" method="POST" action="update" novalidate>
         {% csrf_token %}
         <input type="text" name="oldusername" placeholder="{{username}}" value="{{username}}" readonly class="col-12 text-center border-0 text-primary font-weight-bolder">
         {{form|crispy}}
-        <input type="radio" value="True" name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
-        <input type="radio" value="False" name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">User</label>
+        <input type="radio" value="True"  name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
+        <input type="radio" value="False" checked name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">User</label>
           <button class="btn btn-outline-primary col-12 mt-4" type="submit">Update user data</button>
         </form>
       </div>

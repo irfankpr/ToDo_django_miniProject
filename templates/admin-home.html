@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
       {% block header-footer %}
+      <div style="position: sticky;">
       <div class="container row col-12 bg-warning m-0 px-5 py-1 px-5 justify-content-between">
         <h1 class="col-6 col-md-4">Admin : {{name}}</h1>
         <form class="form-inline my-2 my-lg-0 col-md-4" method="POST" action="#">
@@ -10,7 +11,11 @@
           </form>
         <a href="adout" class="font-weight-bolder bg-danger p-3 text-light text-decoration-none">LOG OUT</a>
       </div>
-      <div class="col-12 my-4 container " style="height: 630px; overflow: scroll; scroll-behavior: smooth;">
+      {% for msg in messages %}
+      <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
+      {% endfor %}
+    </div>
+      <div class="col-12 mt-4 container " style="height: 600px; overflow: scroll; scroll-behavior: smooth;">
         <div class="table row justify-content-center">
         <table class="border border-primary col-10">
             <tr><th colspan="8" class="text-center bg-primary text-light p-2">USER DATA</th></tr>
@@ -29,23 +34,23 @@
             {% endfor %}
         </table>
     </div>
-    <div class=" row container justify-content-center  col-12">
-      {% for msg in messages %}
-      <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
-      {% endfor %}
-        <form method="POST" action="newuser" novalidate class="border border-primary p-1">
+      </div>
+
+    <div class=" row container justify-content-center mt-1 col-12">
+      <h3 class="text-center text-primary mt-3 col-12">Add new user</h3>
+        <form method="POST" action="newuser" novalidate class="border border-primary p-1 col-6">
           {% csrf_token %}
           <div class=" col-12 row container justify-content-around">
             {{form|crispy}}
             <div class="mt-5">
             <input type="radio" name="is_staff" value="True" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
-            <input type="radio" name="is_staff" value="False" id="is_staff"><label for="is_staff" class="mx-2">User</label>
+            <input type="radio" checked name="is_staff" value="False" id="is_staff"><label for="is_staff" class="mx-2">User</label>
         </div>
           <input type="submit" value="ADD" class="col-md-2 col-12 btn-outline-success mt-4" />
         </div>
         </form>
       </div>
-      </div>
+
 
 
 
