@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+      {% block header-footer %}
+      <div class="container row col-12 bg-warning m-0 px-5 py-1 px-5 justify-content-between">
+        <h1 class="col-6 col-md-4">Admin : {{name}}</h1>
+        <form class="form-inline my-2 my-lg-0 col-md-4">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+          </form>
+        <a href="adout" class="font-weight-bolder bg-danger p-3 text-light text-decoration-none">LOG OUT</a>
+      </div>
+      <div class="col-12 my-4 container " style="height: 630px; overflow: scroll; scroll-behavior: smooth;">
+        <div class="table row justify-content-center">
+        <table class="border border-primary col-10">
+            <tr><th colspan="8" class="text-center bg-primary text-light p-2">USER DATA</th></tr>
+            <tr><th class="p-2">N0.</th><th>User Name</th><th>Admin</th><th>Super-User</th><th>Last Login</th><th>Date Joined</th><th>Active</th><th>Delete user</th></tr>
+            <!-- table body loop -->
+            {% for u in users %}
+            <tr><td>{{forloop.counter}}</td>
+                <td><a href=" {% url 'show' u.id %}">{{u.username}}</a></td>
+                <td>{{u.is_staff}}</td>
+                <td>{{u.is_superuser}}</td>
+                <td>{{u.last_login}}</td>
+                <td>{{u.date_joined}}</td>
+                <td>{{u.is_active}}</td>
+                <td> <a href=" {% url 'delete-user' u.id %} " class="btn btn-danger my-1 border">Delete User</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class=" row container justify-content-center col-12">
+        <form method="POST" action="newuser" novalidate>
+          {% csrf_token %}
+          <div class=" col-12 row container justify-content-around">
+            {{form|crispy}}
+            <div class="mt-5">
+            <input type="checkbox" name="is_staff" id="is_staff"><label for="is_staff" class="mx-2">Admin</label>
+        </div>
+          <input type="submit" value="ADD" class="col-md-2 col-12 btn-outline-success mt-4" />
+        </div>
+        </form>
+        {% for msg in messages %}
+        <a class="col-12 p-0 m-0 text-danger font-weight-bold"> {{msg}} </a>
+        {% endfor %}
+      </div>
+      </div>
+
+
+
+      {% endblock %}

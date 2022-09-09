@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'validate',
     'datam',
     'crispy_forms',
+    'admn',
 ]
 
 MIDDLEWARE = [

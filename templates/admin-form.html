@@ -4,12 +4,18 @@
     <div class="col-12 col-md-5 m-3 border  border-primary pt-5 text-center">
         <h1>Admin Log IN</h1>
         <p class="col-12 font-weight-bold text-secondary p-0 m-0">log in as admin</p>
-        <form action="admin" method="POST">
+        <form action="admin-login" method="POST">
+            {% csrf_token %}
             <input type="text" class="col-10 mt-4 mt-5" placeholder="Admin id" name="adminid">
-            <input type="Admin password" name="adpass" placeholder="Admin password" id="Adpass" class="col-10 mt-5">
+            <input type="password" name="AdminPassword" placeholder="Admin Password" id="Adpass" class="col-10 mt-5">
             <input type="submit" value="LOGIN" class="col-3 btn-outline-success my-5">
         </form>
-        
     </div>
+    <div class="container-fluid row col-12 mt-4 px-5 text-center">
+        {% for msg in messages %}
+        <h4 class="col-12 text-danger"> {{msg}} </h4>
+        {% endfor %}
+    </div>
+
   
 {% endblock%}

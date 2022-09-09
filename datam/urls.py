@@ -7,8 +7,8 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('', views.addtask),
+    path('newtask',views.addtask),
     path('delete/<int:taskid>',views.delete,name='delete'),
     path('done/<int:taskid>',views.done,name='done'),
-    path('remove/<int:taskid>',views.delete, name='remove')
+    path('remove/<int:taskid>',views.delete, name='remove'),
 ]

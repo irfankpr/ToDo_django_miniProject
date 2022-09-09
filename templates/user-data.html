@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>{{ttl}}</title>
+    <title>home</title>
 </head>
 <body class="m-0 p-0"></body>
 <header class="col-12 container-fluid px-5 mx-0 bg-primary ">
@@ -50,9 +50,74 @@
                 </div>
               </nav>
 </header>
-      {% block header-footer %}
+       {% block header-footer %} 
 
-      {% endblock %}
+      <div class="container row col-12 bg-warning m-0 px-5 py-1 px-5 justify-content-between">
+        <h1 class="col-6 col-md-4">Admin : {{name}}</h1>
+        <form class="form-inline my-2 my-lg-0 col-md-4">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+          </form>
+        <a href="adout" class="font-weight-bolder bg-danger p-3 text-light text-decoration-none">LOG OUT</a>
+      </div>
+      <div style="height: 700px;" class="container-fluid p-0 m-0 row col-12 mt-4 justify-content-around">
+        <div class="col-10 col-md-6 " style="overflow: scroll;">
+          <table class="col-12 border border-danger">
+            <tr>
+              <th colspan="4" class="text-center bg-danger border-bottom border-light text-light">{{username}}'s  Tasks Todo</th>
+            </tr>
+            <tr class="font-weight-bold">
+              <th class="col-1 text-center">N0.</th>
+              <th class="text-center">Tasks</th>
+              <th class="col-1 text-center">DROP</th>
+              <th class="col-1 text-center">DONE</th>
+            </tr>
+            {% for i in td %}
+            <tr class="font-weight-bold ">
+              <td class="text-center">{{forloop.counter}} </td>
+              <td>{{ i.task }}</td>
+              <td class="col-1 text-center">
+                <a href=" {% url 'admin-delete' i.id %} " class="btn btn-danger my-1 border">DELETE</a>
+              </td>
+              <td class="col-1 text-center">
+                <a href=" {% url 'admin-done' i.id %} " class="btn btn-success my-1 border">DONE</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      
+      
+        <div class="col-10 col-md-6 " style="overflow: scroll;">
+          <table class="col-12 border border-success">
+            <tr>
+              <th colspan="4" class="text-center bg-success border-bottom border-light text-light">{{username}}'s compleeted tasks</th>
+            </tr>
+            <tr class="font-weight-bold">
+              <th class="col-1 text-center">N0.</th>
+              <th class="text-center">Tasks</th>
+              <th class="col-1 text-center">DELETE</th>
+            </tr>
+            {% for j in dn %}
+            <tr class="font-weight-bold ">
+              <td class="text-center">{{forloop.counter}}</td>
+              <td>{{ j.task }}</td>
+              <td class="col-1 text-center">
+                <a href=" {% url 'admin-remove' j.id %} " class="btn btn-warning my-1 border">REMOVE</a>
+      
+              </td>
+            </tr>
+            {% endfor %}
+      
+          </table>
+        </div>
+      </div>
+      
+
+
+
+
+       {% endblock %}
 <footer class=" bg-primary col-12 mt-4 mb-0 mx-0 text-center py-4">
         <h2 class="text-light ">MY-BOOK</h2>
         <h4 class="text-white">Track your activities</h4>

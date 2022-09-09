@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -35,3 +36,4 @@ def done(request, taskid):
         task.task_status=True
         task.save()
         return redirect('/')
+

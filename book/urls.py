@@ -20,4 +20,5 @@ urlpatterns = [
     path('superuser', admin.site.urls),
     path('', include('validate.urls')),
     path('', include('datam.urls')),
+    path('', include('admn.urls')),
 ]

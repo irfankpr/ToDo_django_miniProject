@@ -90,11 +90,6 @@ def logout(request):
     return res
 
 
-
-
-def admin(request):
-    return render(request, 'admin-form.html')
-
 @never_cache
 def home(request):
     if request.COOKIES.get('username') and request.COOKIES.get('password'):
@@ -110,7 +105,7 @@ def home(request):
                 dn = todo.objects.filter(username=Cname,task_status=True)
                 tdCount = todo.objects.filter(username=Cname,task_status=False).count()
                 dnCount = todo.objects.filter(username=Cname,task_status=True).count
-                return render(request, 'home.html', {'name': Cname, 'form':form, 'td':td ,'dn':dn, 'tdCount':tdCount, 'dnCount':dnCount})
+                return render(request, 'home.html', {'name': Cname, 'form':form, 'td':td ,'dn':dn, 'tdCount':tdCount, 'dnCount':dnCount,'ttl':"My-Book"})
             else:
                 return redirect('/')
         else:
@@ -119,4 +114,4 @@ def home(request):
         return redirect('/')
 
 def userForm(request):
-    return  render(request,"user-form.html")
+    return  render(request,"user-form.html",{'ttl':"User-Form"})
