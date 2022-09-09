@@ -3,7 +3,7 @@
       {% block header-footer %}
       <div class="container row col-12 bg-warning m-0 px-5 py-1 px-5 justify-content-between">
         <h1 class="col-6 col-md-4">Admin : {{name}}</h1>
-        <form class="form-inline my-2 my-lg-0 col-md-4" method="GET" action="#">
+        <form class="form-inline my-2 my-lg-0 col-md-4" method="POST" action="#">
           {% csrf_token %}
             <input class="form-control mr-sm-2" type="search" value="search by user name" name="search" >
             <button class="btn btn-outline-success my-2 my-sm-0 text-light font-weight-bold" type="submit">Search</button>
