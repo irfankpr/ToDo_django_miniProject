@@ -62,8 +62,8 @@ def adminhome(request):
         usr = auth.authenticate(username=Cname, password=Cpassw,is_staff="true")
         if usr:
             if Cname == Sname and Cpassw == Spassw:
-                if request.method=='GET':
-                    s= lower( request.GET['search'])
+                if request.method=='POST':
+                    s= lower( request.POST['search'])
                     if s == "" or s== "search by user name":
                         users = User.objects.filter()
                     else:
