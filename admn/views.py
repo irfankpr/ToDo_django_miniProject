@@ -10,7 +10,7 @@ from django.views.decorators.cache import never_cache
 from admn.forms import newuser
 from datam.models import todo
 
-
+@never_cache
 def admin(request):
     if request.COOKIES.get("admin-ID") and request.COOKIES.get("admin-password"):
         if request.session['admin-ID'] and request.session['admin-password']:
@@ -28,7 +28,7 @@ def admin(request):
     else:
         return render(request, 'admin-form.html', {'ttl': "Admin-Form"})
 
-
+@never_cache
 def login(request):
     if request.method == 'POST':
         if request.POST['adminid'] and request.POST['AdminPassword'] :
@@ -91,7 +91,7 @@ def adout(request):
     res.delete_cookie('admin-password')
     return res
 
-@never_cache
+
 def show(request,Usrid):
     if 'admin-ID' in request.COOKIES:
         Cname = request.COOKIES.get('admin-ID')
@@ -137,9 +137,14 @@ def adduser(request):
             uname = request.POST['username']
             passw = request.POST['password']
             staf = request.POST['is_staff']
+            if User.objects.filter(username=uname):
+                print("username already exist.")
+                messages.error(request, 'User name already exist !')
+                return redirect('/admin')
             usr = User.objects.create_user(username=uname, password=passw,is_staff=staf)
             usr.save()
-            print("user sign inned successfully")
+            messages.error(request, 'New profile added successfully')
+            print("user added successfully")
             return redirect('/admin')
     else:
         return redirect('/admin')
@@ -148,7 +153,9 @@ def adduser(request):
 def deleteuser(request,userid):
     if request.method == 'GET':
         usr = User.objects.get(id=userid)
-        if usr.is_superuser == False :
+        usrname=usr.username
+        if not usr.is_superuser:
+            todo.objects.filter(username=usrname).delete()
             User.objects.get(id=userid).delete()
             return redirect('/admin')
         else:
@@ -163,12 +170,15 @@ def update(request):
         password = request.POST['password']
         staf = request.POST['is_staff']
         usr=User.objects.get(username=oldusername)
+        if usr.is_superuser:
+            messages.error(request, 'Admin cannot modify superuser data.')
+            return redirect('/admin')
         usr.delete()
+        td=todo.objects.filter(username=oldusername)
+        td.username=newusername
         usr = User.objects.create_user(username=newusername, password=password, is_staff=staf)
         usr.save()
         return redirect('/admin')
     else:
-        oldusername = request.POST['oldusername']
-        usr = User.objects.get(username=oldusername)
-        messages.error(request, 'All fields are required to update an user')
+        messages.error(request, 'All fields are required to update an details')
         return redirect('/admin')

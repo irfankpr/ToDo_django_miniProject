@@ -40,6 +40,7 @@ def signin(request):
                 usr = User.objects.create_user(username=uname, password=pass1)
                 usr.save()
                 print("user sign inned successfully")
+                auth.login(request, usr)
                 res = redirect('/')
                 res.set_cookie('username',uname)
                 res.set_cookie('password', pass1)
@@ -57,6 +58,7 @@ def signin(request):
         return redirect('/')
 
 #login module
+@never_cache
 def login(request):
     if request.method == 'POST':
         if request.POST['username'] and request.POST['password'] :

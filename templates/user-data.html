@@ -4,10 +4,10 @@
 
       <div class="container row col-12 bg-warning mx-0 justify-content-between px-5">
         <h2 class=" my-auto  " >Admin : {{name}}</h2>
-        <h2>You are viewing {{username}}'s data</h2>
+        <h2>You are viewing <span class="text-primary font-weight-bolder">{{username}}'s</span> data</h2>
         <a href="{% url 'adout' %} " class="font-weight-bolder bg-danger p-3 text-light text-decoration-none">LOG OUT</a>
       </div>
-      <div style="height: 700px;" class="container-fluid p-0 m-0 row col-12 mt-4 justify-content-center">
+      <div style="min-height: 700px;" class="container-fluid p-0 m-0 row col-12 mt-4 justify-content-center">
         <div class="col-10 col-md-6 " style="overflow: scroll;">
           <table class="col-12 border border-danger">
             <tr>
@@ -46,7 +46,7 @@
               <td class="text-center">{{forloop.counter}}</td>
               <td>{{ j.task }}</td>
               <td class="col-1 text-center">
-                <a href=" {% url 'admin-remove' j.id %} " class="btn btn-warning my-1 border">REMOVE</a>
+                <a href=" {% url 'admin-delete' j.id %} " class="btn btn-warning my-1 border">REMOVE</a>
       
               </td>
             </tr>
@@ -61,7 +61,7 @@
         <h4 class="col-12 p-0 my-2 text-danger text-center font-weight-bold"> {{msg}} </h4>
         {% endfor %}
         <h2 class="my-auto col-12 text-center">Update user</h2>
-      <form class="col-8 font-weight-bold my-4" method="POST" action="update" novalidate>
+      <form class="col-8 font-weight-bold my-4" method="POST" action="{% url 'update'%}" novalidate>
         {% csrf_token %}
         <input type="text" name="oldusername" placeholder="{{username}}" value="{{username}}" readonly class="col-12 text-center border-0 text-primary font-weight-bolder">
         {{form|crispy}}

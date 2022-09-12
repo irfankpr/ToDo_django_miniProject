@@ -8,10 +8,10 @@ urlpatterns = [
     path('admin/adout',views.adout,name='adout'),
     path('show/<int:Usrid>',views.show,name='show'),
     path('admin/show/<int:Usrid>',views.show,name='show'),
+    path('admin/home/show/<int:Usrid>',views.show,name='show'),
     path('admin/show/update',views.update,name='update'),
     path('admin/home/<int:taskid>',views.delete,name='admin-delete'),
     path('admin-done/<int:taskid>',views.done,name='admin-done'),
-    path('admin-remove/<int:taskid>',views.delete, name='admin-remove'),
     path('admin/newuser', views.adduser),
     path('delete-user/<int:userid>', views.deleteuser, name='delete-user'),
 ]
