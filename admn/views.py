@@ -85,7 +85,9 @@ def adminhome(request):
 
 
 def adout(request):
-    del request.session
+    if 'admin-ID' in request.session and 'admin-password' in request.session:
+        del request.session['admin-ID']
+        del request.session['admin-password']
     res = redirect('/admin')
     res.delete_cookie("admin-ID")
     res.delete_cookie('admin-password')

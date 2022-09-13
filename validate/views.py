@@ -84,7 +84,9 @@ def login(request):
         return redirect('/')
 #logout module
 def logout(request):
-    del request.session
+    if 'username' in request.session and 'password' in request.session:
+        del request.session['username']
+        del request.session['password']
     res = redirect('/')
     res.delete_cookie("username")
     res.delete_cookie('password')
