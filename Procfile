@@ -1,0 +1,1 @@
+web gunicorn GADstore.wsgi:apllication --log-file -
